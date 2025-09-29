@@ -17,6 +17,7 @@ function dropTable(tableName) {
 // Function to reset Database (drops all tables)
 function resetTable() {
     db.exec(`DROP TABLE IF EXISTS spotify_accounts;`);
+    db.exec(`DROP TABLE IF EXISTS toggles;`);
 
     console.log('[Database] All tables dropped successfully.');
 }

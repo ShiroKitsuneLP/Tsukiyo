@@ -32,10 +32,6 @@ router.get('/', async (req, res) => {
         // Save tokens for the channel
         spotifyRepo.setSpotifyAccount(channel, access_token, refresh_token, token_expires_at);
 
-        const spotifyAccount = spotifyRepo.getSpotifyAccount(channel); // For debugging
-
-        console.log(`Spotify account for channel ${channel}:`, spotifyAccount);
-
         res.send('Spotify account successfully linked! You can close this window.');
     } catch (err) {
         console.error('[Spotify Callback] Error exchanging code:', err);
