@@ -1,0 +1,24 @@
+{
+  "name": "tsukiyo",
+  "version": "1.0.0",
+  "description": "Twitch Chat Bot",
+  "homepage": "https://github.com/ShiroKitsuneLP/Tsukiyo#readme",
+  "bugs": {
+    "url": "https://github.com/ShiroKitsuneLP/Tsukiyo/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShiroKitsuneLP/Tsukiyo.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "src/tsukiyo.js",
+  "scripts": {
+    "dev": "nodemon --trace-warnings src/tsukiyo.js",
+    "start": "node src/tsukiyo.js"
+  },
+  "dependencies": {
+    "tmi.js": "^1.8.5"
+  }
+}
