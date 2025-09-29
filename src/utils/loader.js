@@ -7,32 +7,6 @@ function commandLoader(commandsMap, folderPath) {
     let found = 0;
     let loaded = 0;
 
-    // Load .js files directly in the folder
-    const rootFiles = fs.readdirSync(folderPath).filter(f => f.endsWith('.js'));
-
-    for (const file of rootFiles) {
-        const filePath = path.join(folderPath, file);
-        const command = require(filePath);
-
-        found++;
-
-        if (!command.name || !command.execute) {
-            console.log(`[WARNING] Command in ${filePath} is missing "name" or "execute".`);
-            continue;
-        }
-
-        commandsMap.set(command.name, command);
-
-        if (Array.isArray(command.aliases)) {
-
-            for (const alias of command.aliases) {
-                commandsMap.set(alias, command);
-            }
-        }
-
-        loaded++;
-    }
-
     // Load .js files from subfolders
     const folders = fs.readdirSync(folderPath).filter(f => fs.lstatSync(path.join(folderPath, f)).isDirectory());
 
@@ -66,6 +40,4 @@ function commandLoader(commandsMap, folderPath) {
     console.log(`[Loader] Loaded ${loaded} of ${found} commands.`);
 }
 
-module.exports = { 
-    commandLoader 
-}
+module.exports = { commandLoader }

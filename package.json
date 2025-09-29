@@ -15,10 +15,19 @@
   "type": "commonjs",
   "main": "src/tsukiyo.js",
   "scripts": {
-    "dev": "nodemon --trace-warnings src/tsukiyo.js",
-    "start": "node src/tsukiyo.js"
+    "database:drop": "node src/scripts/manageDatabase.js --drop",
+    "database:reset": "node src/scripts/manageDatabase.js --reset",
+    "database:setup": "node src/scripts/manageDatabase.js --setup",
+    "dev": "concurrently \"nodemon --trace-warnings src/tsukiyo.js\" \"nodemon --trace-warnings src/web/index.js\"",
+    "start": "concurrently \"node src/tsukiyo.js\" \"node src/web/index.js\""
   },
   "dependencies": {
+    "better-sqlite3": "^12.4.1",
+    "express": "^5.1.0",
+    "spotify-web-api-node": "^5.0.2",
     "tmi.js": "^1.8.5"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
   }
 }

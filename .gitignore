@@ -3,3 +3,8 @@ node_modules/
 
 # Bot Config
 config.json
+
+# Database
+src/data/*.db
+src/data/*.db-*
+src/data/backup/
