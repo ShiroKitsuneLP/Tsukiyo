@@ -15,11 +15,11 @@ app.use('/callback', spotifyCallback);
 
 const PORT = config.webPort || 3000;
 
-// Start HTTPS server (and HTTP redirect to HTTPS)
+// Start HTTP/HTTPS server
 const https = require('https');
 const http = require('http');
 
-// Zertifikatspfad anpassen!
+// Certificates for HTTPS
 const sslOptions = {
     key: fs.readFileSync(path.join(__dirname, './cert/privkey.pem')),
     cert: fs.readFileSync(path.join(__dirname, './cert/fullchain.pem'))
@@ -34,8 +34,7 @@ if (config.https) {
     });
 }
 
-
-// Optional: HTTP auf HTTPS weiterleiten
+// HTTP redirect to HTTPS
 http.createServer((req, res) => {
     res.writeHead(301, { "Location": `https://${req.headers.host.replace(/:.*/, ':' + HTTPS_PORT)}${req.url}` });
     res.end();

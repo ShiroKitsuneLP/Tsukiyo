@@ -58,5 +58,13 @@ tsukiyo.on('message', (channel, userstate, message, self) => {
     }
 });
 
+// Start webserver
+try {
+    require('./web/index.js');
+    console.log('[Main] Webserver (Express) started.');
+} catch (err) {
+    console.error('[Main] Webserver could not be started:', err);
+}
+
 // Connect to Twitch
 tsukiyo.connect().catch(console.error);
