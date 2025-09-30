@@ -15,7 +15,30 @@ app.use('/callback', spotifyCallback);
 
 const PORT = config.webPort || 3000;
 
-// Start HTTP server only (no HTTPS)
-app.listen(PORT, () => {
-    console.log(`[Web] HTTP server is listening on port ${PORT}`);
+// Start HTTPS server (and HTTP redirect to HTTPS)
+const https = require('https');
+const http = require('http');
+
+// Zertifikatspfad anpassen!
+const sslOptions = {
+    key: fs.readFileSync(path.join(__dirname, './cert/privkey.pem')),
+    cert: fs.readFileSync(path.join(__dirname, './cert/fullchain.pem'))
+};
+
+const HTTPS_PORT = 3000;
+const HTTP_PORT = 3080;
+
+if (config.https) {
+    https.createServer(sslOptions, app).listen(HTTPS_PORT, () => {
+        console.log(`[Web] HTTPS server is listening on port ${HTTPS_PORT}`);
+    });
+}
+
+
+// Optional: HTTP auf HTTPS weiterleiten
+http.createServer((req, res) => {
+    res.writeHead(301, { "Location": `https://${req.headers.host.replace(/:.*/, ':' + HTTPS_PORT)}${req.url}` });
+    res.end();
+}).listen(HTTP_PORT, () => {
+    console.log(`[Web] HTTP redirect server is listening on port ${HTTP_PORT}`);
 });

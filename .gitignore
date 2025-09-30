@@ -8,3 +8,6 @@ config.json
 src/data/*.db
 src/data/*.db-*
 src/data/backup/
+
+# Certificates
+cert/
